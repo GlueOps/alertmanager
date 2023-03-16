@@ -2,9 +2,9 @@ FROM golang:1.19-alpine
 
 
 # Copy the compiled binaries from the builder stage
-COPY ./alertmanager /bin/alertmanager
-COPY ./amtool /bin/amtool
-COPY examples/ha/alertmanager.yml      /etc/alertmanager/alertmanager.yml
+COPY build/alertmanager /bin/alertmanager
+COPY build/amtool /bin/amtool
+COPY build/examples/ha/alertmanager.yml      /etc/alertmanager/alertmanager.yml
 
 RUN mkdir -p /etc/alertmanager
 

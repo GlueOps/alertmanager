@@ -22,12 +22,12 @@ jobs:
 
       - name: clone prometheus/alertmanager
         run: git clone --depth 1 --branch v0.25.0 https://github.com/prometheus/alertmanager.git build 
+
+      - name: overwrite with our custom code
+        run: cp -r customizations/* build/
         
       - name: build artifacts
-        run: cd build && touch test-file && make build-all && cd ..
-      
-      - name: copy artifacts
-        run: cp build/alertmanager build/amtool .
+        run: cd build && make build-all && cd ..
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
