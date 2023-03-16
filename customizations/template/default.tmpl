@@ -40,6 +40,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{- end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{- end }}
 {{ define "opsgenie.default.source" }}{{ template "__alertmanagerURL" . }}{{ end }}
 
@@ -73,6 +74,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{- end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{- end }}
 {{ define "victorops.default.entity_display_name" }}{{ template "__subject" . }}{{ end }}
 {{ define "victorops.default.monitoring_tool" }}{{ template "__alertmanager" . }}{{ end }}
@@ -87,6 +89,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
 {{ define "pushover.default.url" }}{{ template "__alertmanagerURL" . }}{{ end }}
 
@@ -100,6 +103,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
 
 {{ define "telegram.default.message" }}
@@ -111,6 +115,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
 
 {{ define "discord.default.title" }}{{ template "__subject" . }}{{ end }}
@@ -123,6 +128,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
 
 {{ define "webex.default.message" }}{{ .CommonAnnotations.SortedPairs.Values | join " " }}
@@ -134,4 +140,5 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
