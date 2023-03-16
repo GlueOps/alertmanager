@@ -8,7 +8,7 @@
 {{ range .Labels.SortedPairs }}{{ if ne .Name "prometheus" }} - {{ .Name }} = {{ .Value }}
 {{ end }}{{ end }}Annotations:
 {{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
-{{ end }}Source: {{ template "__alertmanagerURL" . }}
+{{ end }}
 {{ end }}{{ end }}
 
 
