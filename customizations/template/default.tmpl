@@ -5,10 +5,10 @@
 {{ define "__description" }}{{ end }}
 
 {{ define "__text_alert_list" }}{{ range . }}Labels:
-{{ range .Labels.SortedPairs }}{{ if ne .Name "Prometheus" }} - {{ .Name }} = {{ .Value }}
-{{ end }}{{ end }}Annotations:
+{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
+{{ end }}Annotations:
 {{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
-{{ end }}Source: {{ .ExternalURL }}
+{{ end }}Source: {{ .GeneratorURL }}
 {{ end }}{{ end }}
 
 
@@ -21,16 +21,7 @@
 {{ define "slack.default.iconemoji" }}{{ end }}
 {{ define "slack.default.iconurl" }}{{ end }}
 {{ define "slack.default.text" }}{{ end }}
-{{ define "slack.default.footer" }}{{ .CommonAnnotations.SortedPairs.Values | join " " }}
-{{ if gt (len .Alerts.Firing) 0 -}}
-Alerts Firing:
-{{ template "__text_alert_list" .Alerts.Firing }}
-{{- end }}
-{{ if gt (len .Alerts.Resolved) 0 -}}
-Alerts Resolved:
-{{ template "__text_alert_list" .Alerts.Resolved }}
-{{- end }}
-{{- end }}
+{{ define "slack.default.footer" }}{{ end }}
 
 
 {{ define "pagerduty.default.description" }}{{ template "__subject" . }}{{ end }}
