@@ -8,7 +8,7 @@
 {{ range .Labels.SortedPairs }}{{ if ne .Name "Prometheus" }} - {{ .Name }} = {{ .Value }}
 {{ end }}{{ end }}Annotations:
 {{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
-{{ end }}Source: {{ template "__alertmanagerURL" . }}
+{{ end }}Source: {{ .ExternalURL }}
 {{ end }}{{ end }}
 
 
@@ -31,7 +31,6 @@ Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{- end }}
 {{- end }}
-{{ define "opsgenie.default.source" }}{{ template "__alertmanagerURL" . }}{{ end }}
 
 
 {{ define "pagerduty.default.description" }}{{ template "__subject" . }}{{ end }}
