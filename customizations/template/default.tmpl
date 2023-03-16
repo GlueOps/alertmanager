@@ -1,14 +1,14 @@
 {{ define "__alertmanager" }}Alertmanager{{ end }}
-{{ define "__alertmanagerURL" }}{{ .ExternalURL }}/#/glueops-test-1?receiver={{ .Receiver | urlquery }}{{ end }}
+{{ define "__alertmanagerURL" }}{{ .ExternalURL }}{{ end }}
 
-{{ define "__subject" }}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.SortedPairs.Values | join " " }} {{ if gt (len .CommonLabels) (len .GroupLabels) }}({{ with .CommonLabels.Remove .GroupLabels.Names }}{{ .Values | join " " }}{{ end }}){{ end }}{{ end }}
+{{ define "__subject" }}[{{ .Status | toUpper }}] {{ with index .GroupLabels "alertname" }}{{ . }}{{ end }} - {{ with index .GroupLabels "namespace" }}{{ . }}{{ end }}{{ end }}
 {{ define "__description" }}{{ end }}
 
 {{ define "__text_alert_list" }}{{ range . }}Labels:
-{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
-{{ end }}Annotations:
+{{ range .Labels.SortedPairs }}{{ if ne .Name "prometheus" }} - {{ .Name }} = {{ .Value }}
+{{ end }}{{ end }}Annotations:
 {{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
-{{ end }}Source: {{ .GeneratorURL }}
+{{ end }}
 {{ end }}{{ end }}
 
 
@@ -40,6 +40,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{- end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{- end }}
 {{ define "opsgenie.default.source" }}{{ template "__alertmanagerURL" . }}{{ end }}
 
@@ -73,6 +74,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{- end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{- end }}
 {{ define "victorops.default.entity_display_name" }}{{ template "__subject" . }}{{ end }}
 {{ define "victorops.default.monitoring_tool" }}{{ template "__alertmanager" . }}{{ end }}
@@ -87,6 +89,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
 {{ define "pushover.default.url" }}{{ template "__alertmanagerURL" . }}{{ end }}
 
@@ -100,6 +103,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
 
 {{ define "telegram.default.message" }}
@@ -111,6 +115,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
 
 {{ define "discord.default.title" }}{{ template "__subject" . }}{{ end }}
@@ -123,6 +128,7 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
 
 {{ define "webex.default.message" }}{{ .CommonAnnotations.SortedPairs.Values | join " " }}
@@ -134,4 +140,5 @@ Alerts Firing:
 Alerts Resolved:
 {{ template "__text_alert_list" .Alerts.Resolved }}
 {{ end }}
+Source: {{ template "__alertmanagerURL" . }}
 {{ end }}
