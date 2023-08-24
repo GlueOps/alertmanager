@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: clone prometheus/alertmanager
-        run: git clone --depth 1 --branch v0.25.0 https://github.com/prometheus/alertmanager.git build 
+        run: git clone --depth 1 --branch v0.25.1 https://github.com/prometheus/alertmanager.git build
 
       - name: overwrite with our custom code
         run: cp -r customizations/* build/
