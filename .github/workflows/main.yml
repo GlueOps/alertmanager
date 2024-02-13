@@ -21,7 +21,7 @@ jobs:
       - run: go version
 
       - name: Check our repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: clone prometheus/alertmanager
         run: git clone --depth 1 --branch v0.26.0 https://github.com/prometheus/alertmanager.git build
@@ -43,7 +43,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Generate Variables for Tags
-        uses: rlespinasse/github-slug-action@v3.x
+        uses: rlespinasse/github-slug-action@v4
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
