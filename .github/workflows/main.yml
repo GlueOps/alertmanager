@@ -17,14 +17,14 @@ jobs:
     steps:
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.18'
+          go-version: '1.21'
       - run: go version
 
       - name: Check our repo
         uses: actions/checkout@v4
 
       - name: clone prometheus/alertmanager
-        run: git clone --depth 1 --branch v0.26.0 https://github.com/prometheus/alertmanager.git build
+        run: git clone --depth 1 --branch v0.27.0 https://github.com/prometheus/alertmanager.git build
 
       - name: overwrite with our custom code
         run: cp -r customizations/* build/
