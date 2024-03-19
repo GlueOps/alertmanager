@@ -1,4 +1,4 @@
-FROM golang:1.21.0-alpine
+FROM golang:1.22.0-alpine
 
 
 # Copy the compiled binaries from the builder stage
